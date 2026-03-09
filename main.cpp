@@ -1,89 +1,85 @@
 #include <iostream>
-#include <string>
 using namespace std;
-//strutture e funzioni
-struct prodotto{
+
+struct prodotto {
 	string nome;
 	string categoria;
-	float prezzo;	
+	float prezzo;
 };
 
-void aggiungi(prodotto pp, prodotto ele[],int &dim){
-	ele[dim]=pp;
-	dim++;	
+void aggiunta(prodotto elenco[], int &n) {
+	cout<<"Nome: ";
+	cin>>elenco[n].nome;
+	cout<<"Categoria: ";
+	cin>>elenco[n].categoria;
+	cout<<"Prezzo: ";
+	cin>>elenco[n].prezzo;
+	n++;
 }
-void modifica(prodotto ele[],int d){
-	string nome; 
-	cout<<"inserisci il prodotto a modificare";
-	getline(cin,nome)
-	for(int i=0;i<d;i++)
-	if(ele[].nome==nome){
-		cout<<"modifica prodotto";
-		
+
+void visualizza(prodotto elenco[], int n) {
+	for(int i=0; i<n; i++) {
+		cout<<"\nNome: "<<elenco[i].nome;
+		cout<<"\nCategoria: "<<elenco[i].categoria;
+		cout<<"\nPrezzo: "<<elenco[i].prezzo<<"\n";
 	}
-	
-	void visualizza(prodotto v[],int d){
-		for(int i=0;i<d;i++){
-			return 1;
+}
+
+int ricerca(prodotto elenco[], int n, string nome) {
+	for(int i=0; i<n; i++) {
+		if(elenco[i].nome==nome) {
+			return i;
 		}
-		
-		
 	}
-	
-	
-	
-	
-	
-	
+	return -1;
+}
+void modifica(prodotto elenco[], int n){
+    string nome;
+    cout<<"Nome prodotto da modificare: ";
+    cin>>nome;
+
+    int pos=ricerca(elenco,n,nome);
+
+    if(pos!=-1){
+        cout<<"Nuovo nome: ";
+        cin>>elenco[pos].nome;
+        cout<<"Nuova categoria: ";
+        cin>>elenco[pos].categoria;
+        cout<<"Nuovo prezzo: ";
+        cin>>elenco[pos].prezzo;
+    }else{
+        cout<<"Prodotto non trovato";
+    }
 }
 
-string visualizza(prodotto ele[], int dim){
-	string s;
-	for(int i=0;i<dim;i++){
-		s+=ele[i].nome+"\t";
-		s+=ele[i].categoria+"\t";
-		s+=to_string(ele[i].prezzo)+"\n";
-	}
-	return s;
-}
 
-int main(){
-//dichiarazioni delle variabili
-prodotto  p;
-prodotto elenco[100];
-int n=0;
+int main() {
+	prodotto elenco[100];
+	int n=0;
+	int scelta;
 
-//struttura a menù
-int scelta;
-do{
-//visualizzazione opzioni
-cout<<"1 - (C)Aggiunta"<<endl;
-cout<<"2 - (R)Visualizzazione"<<endl;
-cout<<"3 - modifica"<<endl;
-cout<<"0 - Fine programma"<<endl;
-//scelta dell'opzione
-cout<<"scegli l'opzione";
+	do {
+		cout<<"\n 1 Aggiunta";
+		cout<<"\n 2 Visualizza";
+		cout<<"\n 3 Modifica";
+		cout<<"\n 4 Cancella";
+		cout<<"\n 0 Fine";
+		cout<<"\n Scelta: ";
+		cin>>scelta;
 
-cin>>scelta;
-fflush(stdin);
-//elaborazione scelta
-switch(scelta){
-	case 1:
-		cout<<"Inserisci il nome ";
-		getline(cin,p.nome);
-		cout<<"Inserisci la categoria ";
-		getline(cin,p.categoria);
-		cout<<"Inserisci il prezzo ";
-		cin>>p.prezzo;
-		aggiungi(p,elenco,n);
-		break;
-	case 2: 
-		
-	    cout<<visualizza(elenco,n);
-		break;	
-	
-}
-}
-while (scelta!=0);
-	
+		switch(scelta) {
+		case 1:
+			aggiunta(elenco,n);
+			break;
+		case 2:
+			visualizza(elenco,n);
+			break;
+	    case 3:
+	        modifica(elenco,n);
+	        break;
+		}
+
+	} while(scelta!=0);
+
+	return 0;
 }
